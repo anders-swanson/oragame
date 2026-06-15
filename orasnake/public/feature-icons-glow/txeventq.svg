@@ -1,0 +1,22 @@
+<svg viewBox="0 0 128 128" width="128" height="128" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="txeventq pickup">
+  <defs>
+    <radialGradient id="glow-txeventq" cx="50%" cy="46%" r="58%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="0.34" stop-color="#ffa8a8" stop-opacity="0.78"/>
+      <stop offset="0.72" stop-color="#ffa8a8" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#ffa8a8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft-txeventq" x="-45%" y="-45%" width="190%" height="190%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.55 0" result="boost"/>
+      <feMerge><feMergeNode in="boost"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="icon-txeventq" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+      <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.9686 0 0 0 0 0.9412 0 0 0 0 0.8706 0 0 0 1 0" result="glyph"/>
+      <feDropShadow in="glyph" dx="0" dy="0" stdDeviation="1.1" flood-color="#f7f0de" flood-opacity="0.3" result="glow"/>
+      <feDropShadow in="glyph" dx="0" dy="2" stdDeviation="1.1" flood-color="#000000" flood-opacity="0.34" result="shadow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="shadow"/><feMergeNode in="glyph"/></feMerge>
+    </filter>
+  </defs>
+  <image href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTkiIGhlaWdodD0iMTAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3BhY2U9InByZXNlcnZlIiBvdmVyZmxvdz0iaGlkZGVuIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNjAyIC01MjQpIj48Zz48Zz48Zz48Zz48cGF0aCBkPSJNNjUyIDUzNC41MjhDNjMwLjIzNiA1MzQuNTI4IDYxMi41MjggNTUyLjIzNiA2MTIuNTI4IDU3NCA2MTIuNTI4IDU5NS43NjQgNjMwLjIzNiA2MTMuNDcyIDY1MiA2MTMuNDcyIDY3My43NjQgNjEzLjQ3MiA2OTEuNDcyIDU5NS43NjQgNjkxLjQ3MiA1NzQgNjkxLjQ3MiA1NTIuMjM2IDY3My43NjQgNTM0LjUyOCA2NTIgNTM0LjUyOFpNNjUyIDYxMC43NUM2MzEuNzM2IDYxMC43NSA2MTUuMjUgNTk0LjI2NCA2MTUuMjUgNTc0IDYxNS4yNSA1NTMuNzM2IDYzMS43MzYgNTM3LjI1IDY1MiA1MzcuMjUgNjcyLjI2NCA1MzcuMjUgNjg4Ljc1IDU1My43MzYgNjg4Ljc1IDU3NCA2ODguNzUgNTk0LjI2NCA2NzIuMjY0IDYxMC43NSA2NTIgNjEwLjc1Wk02NTIgNTM5Ljk3MkM2MzMuMjM3IDUzOS45NzIgNjE3Ljk3MiA1NTUuMjM3IDYxNy45NzIgNTc0IDYxNy45NzIgNTkyLjc2MyA2MzMuMjM3IDYwOC4wMjggNjUyIDYwOC4wMjggNjcwLjc2MyA2MDguMDI4IDY4Ni4wMjggNTkyLjc2MyA2ODYuMDI4IDU3NCA2ODYuMDI4IDU1NS4yMzcgNjcwLjc2MyA1MzkuOTcyIDY1MiA1MzkuOTcyWk02NTIgNjA1LjMwNkM2MzQuNzM4IDYwNS4zMDYgNjIwLjY5NCA1OTEuMjYyIDYyMC42OTQgNTc0IDYyMC42OTQgNTU2LjczOCA2MzQuNzM4IDU0Mi42OTQgNjUyIDU0Mi42OTQgNjY5LjI2MiA1NDIuNjk0IDY4My4zMDYgNTU2LjczOCA2ODMuMzA2IDU3NCA2ODMuMzA2IDU5MS4yNjIgNjY5LjI2MiA2MDUuMzA2IDY1MiA2MDUuMzA2Wk02NDkuOTI0IDU2MS43MTYgNjM0LjMwNiA1NjEuNzE2IDYzNC4zMDYgNTU4Ljk5NCA2NDkuOTI0IDU1OC45OTQgNjQ0LjAwMyA1NTMuNTgzIDY0NS44NDEgNTUxLjU3NiA2NTUuNDAzIDU2MC4zODkgNjQ1Ljg0MSA1NjkuMjAyIDY0NC4wMDMgNTY3LjE5NCA2NDkuOTI0IDU2MS43MTZaTTY0NS44NDEgNTc4Ljc5OCA2NTUuNDAzIDU4Ny42MTEgNjQ1Ljg0MSA1OTYuNDI0IDY0NC4wMDMgNTk0LjQxNyA2NDkuOTI0IDU4OC45MzggNjM0LjMwNiA1ODguOTM4IDYzNC4zMDYgNTg2LjIxNiA2NDkuOTI0IDU4Ni4yMTYgNjQ0LjAwMyA1ODAuODA2IDY0NS44NDEgNTc4Ljc5OFpNNjc0LjQ1OCA1NzQgNjY0Ljg5NyA1ODIuODEzIDY2My4wNTkgNTgwLjgwNiA2NjguOTggNTc1LjMyNyA2NTMuMzYxIDU3NS4zMjcgNjUzLjM2MSA1NzIuNjA1IDY2OC45OCA1NzIuNjA1IDY2My4wNTkgNTY3LjE5NCA2NjQuODk3IDU2NS4xODcgNjc0LjQ1OCA1NzRaIiBmaWxsPSIjZmZmN2VkIiBmaWxsLXJ1bGU9Im5vbnplcm8iIGZpbGwtb3BhY2l0eT0iMSIvPjwvZz48L2c+PC9nPjwvZz48L2c+PC9zdmc+" x="4" y="4" width="120" height="120" preserveAspectRatio="xMidYMid meet" filter="url(#icon-txeventq)"/>
+</svg>

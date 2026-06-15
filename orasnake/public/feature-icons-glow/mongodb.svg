@@ -1,0 +1,22 @@
+<svg viewBox="0 0 128 128" width="128" height="128" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="mongodb pickup">
+  <defs>
+    <radialGradient id="glow-mongodb" cx="50%" cy="46%" r="58%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="0.34" stop-color="#69db7c" stop-opacity="0.78"/>
+      <stop offset="0.72" stop-color="#69db7c" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#69db7c" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft-mongodb" x="-45%" y="-45%" width="190%" height="190%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1.55 0" result="boost"/>
+      <feMerge><feMergeNode in="boost"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="icon-mongodb" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+      <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.9686 0 0 0 0 0.9412 0 0 0 0 0.8706 0 0 0 1 0" result="glyph"/>
+      <feDropShadow in="glyph" dx="0" dy="0" stdDeviation="1.1" flood-color="#f7f0de" flood-opacity="0.3" result="glow"/>
+      <feDropShadow in="glyph" dx="0" dy="2" stdDeviation="1.1" flood-color="#000000" flood-opacity="0.34" result="shadow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="shadow"/><feMergeNode in="glyph"/></feMerge>
+    </filter>
+  </defs>
+  <image href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTkiIGhlaWdodD0iOTkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbDpzcGFjZT0icHJlc2VydmUiIG92ZXJmbG93PSJoaWRkZW4iPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKC05MzAgLTE5MykiPjxnPjxnPjxnPjxnPjxwYXRoIGQ9Ik02OS40ODg0IDM4LjYxODFDNjQuMzc5NyAxNi4wNjU2IDUyLjMwMzIgOC42NTMyMSA1MS4wMDU4IDUuODIgNDkuODc0MiA0LjIyNzU4IDQ4Ljg2MzggMS45NjQyNSA0OC4wMzUyIDAgNDcuODg5NyAyLjAwMDYyIDQ3LjgxMjkgMi43Njg1NCA0NS45MjE0IDQuNzg1MzMgNDIuOTk5MyA3LjA3MjkyIDI3Ljk4NDUgMTkuNjY2NyAyNi43NjM5IDQ1LjI4MjggMjUuNjI0MiA2OS4xNzcyIDQ0LjAyMTggODMuNDE2IDQ2LjUxOTYgODUuMjMwN0w0Ni44MDI1IDg1LjQzMjdDNDcuMzIzOSA4OS4yODA0IDQ3Ljc2ODUgOTMuMTM2MiA0OC4xMzYyIDk3TDUwLjA4MDMgOTdDNTAuNTQxIDkyLjgyOSA1MS4yMjgxIDg4LjY5MDMgNTIuMTQxNSA4NC41OTIxIDUzLjgyNjkgODMuMzk1OCA1NC41ODI3IDgyLjcyMDggNTUuNTc3IDgxLjc5MTIgNjUuMDk5MSA3Mi45ODQ0IDcwLjQ0MjIgNjAuNTUyMiA3MC4yODQ2IDQ3LjU4MjUgNzAuMzI1IDQ0LjI5MjYgNjkuODY4MyA0MC44NjUzIDY5LjQ4ODQgMzguNjE4MVpNNDcuOTIyIDcxLjczOTZDNDcuOTIyIDcxLjczOTYgNDcuOTIyIDM4LjIzMDEgNDkuMDMzNSAzOC4yMzQyIDQ5Ljg5NDQgMzguMjM0MiA1MS4wMTM5IDgxLjQ1OTggNTEuMDEzOSA4MS40NTk4IDQ5LjQ3NCA4MS4yNzc5IDQ3LjkyMiA3NC4zNDY1IDQ3LjkyMiA3MS43Mzk2WiIgZmlsbD0iI2ZmZjdlZCIgZmlsbC1ydWxlPSJub256ZXJvIiBmaWxsLW9wYWNpdHk9IjEiIHRyYW5zZm9ybT0ibWF0cml4KDEuMDEwMzEgMCAwIDEgOTMxIDE5NCkiLz48L2c+PC9nPjwvZz48L2c+PC9nPjwvc3ZnPg==" x="4" y="4" width="120" height="120" preserveAspectRatio="xMidYMid meet" filter="url(#icon-mongodb)"/>
+</svg>
