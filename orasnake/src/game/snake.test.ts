@@ -50,7 +50,7 @@ describe("snake movement", () => {
     expect(first.segmentTopicIds[1]).toBe("vector-search");
   });
 
-  it("detects wall collisions", () => {
+  it("wraps through walls", () => {
     const state: SnakeState = {
       ...createInitialSnakeState(grid),
       snake: [{ x: 7, y: 4 }, { x: 6, y: 4 }],
@@ -59,8 +59,9 @@ describe("snake movement", () => {
 
     const result = advanceSnake(state, grid);
 
-    expect(result.collision.type).toBe("wall");
-    expect(result.state.alive).toBe(false);
+    expect(result.collision.type).toBe("none");
+    expect(result.state.alive).toBe(true);
+    expect(result.state.snake[0]).toEqual({ x: 0, y: 4 });
   });
 
   it("detects self collisions", () => {

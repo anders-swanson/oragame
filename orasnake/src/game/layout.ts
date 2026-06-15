@@ -35,7 +35,7 @@ export function computeLayout(width: number, height: number): Layout {
   const isCompact = width < 720 || height < 560;
   const padding = isCompact ? 12 : 24;
   const hudHeight = isCompact ? 66 : 72;
-  const infoHeight = isCompact ? 74 : 0;
+  const infoHeight = isCompact ? 104 : 0;
   const sideWidth = isCompact ? 0 : clamp(Math.floor(width * 0.22), 190, 250);
   const maxGridWidth = width - padding * (isCompact ? 2 : 3) - sideWidth;
   const maxGridHeight = height - hudHeight - padding * 2 - infoHeight;

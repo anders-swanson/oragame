@@ -836,22 +836,29 @@ export class GameScene extends Phaser.Scene {
     const currentTopic = this.pickup.topic;
 
     if (layout.isCompact) {
-      const bottomY = layout.gridY + layout.gridHeight + 12;
+      const bottomY = layout.gridY + layout.gridHeight + 14;
+      const width = layout.width - layout.padding * 2;
+
       addText(this, this.labels, layout.padding, bottomY, `Next: ${currentTopic.label}`, {
         fontSize: layout.font.small,
         fontStyle: "800",
         color: currentTopic.accentColor
-      }).setMaxLines(1);
-      addText(this, this.labels, layout.padding, bottomY + 18, currentTopic.shortFact, {
+      })
+        .setMaxLines(1)
+        .setWordWrapWidth(width);
+
+      addText(this, this.labels, layout.padding, bottomY + 22, currentTopic.shortFact, {
         fontSize: "10px",
         color: COLORS.muted,
-        maxLines: 2
-      }).setWordWrapWidth(layout.width - layout.padding * 2);
-      addText(this, this.labels, layout.padding, bottomY + 34, this.qteStatusText(), {
+        lineSpacing: 2,
+        maxLines: 3
+      }).setWordWrapWidth(width);
+
+      addText(this, this.labels, layout.padding, bottomY + 68, this.qteStatusText(), {
         fontSize: "10px",
         fontStyle: "800",
         color: "#fff7ed"
-      });
+      }).setWordWrapWidth(width);
       return;
     }
 
@@ -936,11 +943,13 @@ export class GameScene extends Phaser.Scene {
     const remaining = Math.max(0, 1 - elapsed / prompt.timeMs);
     const width = Math.min(layout.width - layout.padding * 2, layout.isCompact ? 356 : 640);
     const desiredHeight =
-      prompt.mode === "sequence" ? (layout.isCompact ? 286 : 318) : prompt.mode === "choice" ? (layout.isCompact ? 382 : 420) : layout.isCompact ? 338 : 370;
+      prompt.mode === "sequence" ? (layout.isCompact ? 390 : 318) : prompt.mode === "choice" ? (layout.isCompact ? 390 : 420) : layout.isCompact ? 370 : 370;
     const availableHeight = layout.height - layout.hudHeight - layout.padding * 2;
-    const height = Math.min(desiredHeight, Math.max(layout.isCompact ? 276 : 318, availableHeight));
+    const height = Math.min(desiredHeight, availableHeight);
     const x = Math.floor((layout.width - width) / 2);
     const y = Math.max(layout.hudHeight + 8, Math.min(Math.floor((layout.height - height) / 2), layout.height - height - layout.padding));
+    const snippetY = y + (layout.isCompact ? 100 : 114);
+    const snippetHeight = layout.isCompact ? 58 : 54;
 
     this.graphics.fillStyle(0x000000, 0.68);
     this.graphics.fillRect(0, 0, layout.width, layout.height);
@@ -954,8 +963,11 @@ export class GameScene extends Phaser.Scene {
     addText(this, this.labels, x + 24, y + 18, `${qteModeLabel(prompt.mode)} | ${this.qte.topic.label}`, {
       fontSize: layout.font.small,
       fontStyle: "900",
-      color: this.qte.topic.accentColor
-    });
+      color: this.qte.topic.accentColor,
+      maxLines: 1
+    })
+      .setFixedSize(width - 92, layout.isCompact ? 18 : 22)
+      .setWordWrapWidth(width - 92, true);
     addText(this, this.labels, x + width - 24, y + 18, `${Math.ceil((prompt.timeMs - elapsed) / 1000)}s`, {
       fontSize: layout.font.small,
       fontStyle: "900",
@@ -964,18 +976,19 @@ export class GameScene extends Phaser.Scene {
     }).setOrigin(1, 0);
 
     addText(this, this.labels, x + 18, y + 42, prompt.question, {
-      fontSize: layout.isCompact ? "18px" : "24px",
+      fontSize: layout.isCompact ? "16px" : "24px",
       fontStyle: "900",
       color: "#fff7ed",
-      lineSpacing: 3,
-      maxLines: 2
-    }).setWordWrapWidth(width - 36);
+      lineSpacing: layout.isCompact ? 2 : 3,
+      maxLines: layout.isCompact ? 3 : 2
+    })
+      .setFixedSize(width - 36, layout.isCompact ? 54 : 64)
+      .setWordWrapWidth(width - 36, true);
 
-    const snippetY = y + (layout.isCompact ? 98 : 114);
-    this.drawQteSnippet(layout, x + 18, snippetY, width - 36);
+    this.drawQteSnippet(layout, x + 18, snippetY, width - 36, snippetHeight);
 
     const barX = x + 18;
-    const barY = snippetY + (layout.isCompact ? 62 : 68);
+    const barY = snippetY + snippetHeight + (layout.isCompact ? 14 : 14);
     const barWidth = width - 36;
     this.graphics.fillStyle(0x3b3f31, 1);
     this.graphics.fillRoundedRect(barX, barY, barWidth, 8, 4);
@@ -994,10 +1007,9 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
-  private drawQteSnippet(layout: Layout, x: number, y: number, width: number): void {
+  private drawQteSnippet(layout: Layout, x: number, y: number, width: number, height: number): void {
     if (!this.qte) return;
 
-    const height = layout.isCompact ? 48 : 54;
     this.graphics.fillStyle(0x0a0d0b, 0.96);
     this.graphics.fillRoundedRect(x, y, width, height, 8);
     this.graphics.lineStyle(1, this.qte.topic.color, 0.5);
@@ -1009,13 +1021,17 @@ export class GameScene extends Phaser.Scene {
       color: "#fff7ed",
       lineSpacing: 2,
       maxLines: 2
-    }).setWordWrapWidth(width - 24);
+    })
+      .setFixedSize(width - 24, layout.isCompact ? 28 : 34)
+      .setWordWrapWidth(width - 24, true);
 
     const sourceLabel = addText(this, this.labels, x + 12, y + height - 17, sampleLabelForPath(this.qte.prompt.sourcePath), {
       fontSize: layout.isCompact ? "9px" : "10px",
       color: this.qte.topic.accentColor,
       maxLines: 1
-    }).setWordWrapWidth(width - 24);
+    })
+      .setFixedSize(width - 24, 13)
+      .setWordWrapWidth(width - 24, true);
     underlineText(this.graphics, sourceLabel, this.qte.topic.color, 0.9, 1);
     sourceLabel
       .setInteractive({ useHandCursor: true })
@@ -1113,7 +1129,10 @@ export class GameScene extends Phaser.Scene {
       fontSize: layout.font.small,
       color: COLORS.muted,
       align: "center"
-    }).setOrigin(0.5, 0);
+    })
+      .setOrigin(0.5, 0)
+      .setFixedSize(width - 36, layout.isCompact ? 34 : 22)
+      .setWordWrapWidth(width - 36, true);
   }
 
   private drawChoiceQte(layout: Layout, x: number, top: number, width: number): void {
@@ -1121,7 +1140,7 @@ export class GameScene extends Phaser.Scene {
     if (!activeQte || activeQte.prompt.mode !== "choice") return;
 
     const prompt = activeQte.prompt;
-    const buttonHeight = layout.isCompact ? 50 : 56;
+    const buttonHeight = layout.isCompact ? 58 : 56;
     const gap = layout.isCompact ? 8 : 10;
 
     prompt.choices.forEach((choice, index) => {
@@ -1149,14 +1168,15 @@ export class GameScene extends Phaser.Scene {
         align: "center"
       }).setOrigin(0.5);
 
-      addText(this, this.labels, buttonX + badgeSize + 22, buttonY + buttonHeight / 2, choice, {
+      addText(this, this.labels, buttonX + badgeSize + 22, buttonY + 12, choice, {
         fontSize: layout.font.small,
         fontStyle: "700",
         color: "#fff7ed",
         maxLines: 2
       })
-        .setOrigin(0, 0.5)
-        .setWordWrapWidth(buttonWidth - badgeSize - 36);
+        .setOrigin(0, 0)
+        .setFixedSize(buttonWidth - badgeSize - 42, buttonHeight - 20)
+        .setWordWrapWidth(buttonWidth - badgeSize - 42, true);
     });
   }
 
@@ -1167,7 +1187,7 @@ export class GameScene extends Phaser.Scene {
     const prompt = activeQte.prompt;
     const gap = layout.isCompact ? 8 : 12;
     const laneWidth = Math.floor((width - 36 - gap * 2) / 3);
-    const laneHeight = layout.isCompact ? 92 : 108;
+    const laneHeight = layout.isCompact ? 104 : 108;
     const labels: readonly [string, string, string] = ["A", "S", "D"];
     const sublabels: readonly [string, string, string] = ["Left", "Center", "Right"];
 
@@ -1199,14 +1219,15 @@ export class GameScene extends Phaser.Scene {
       }).setOrigin(0.5, 0);
 
       addText(this, this.labels, laneX + laneWidth / 2, top + laneHeight / 2 + 12, lane, {
-        fontSize: layout.font.small,
+        fontSize: layout.isCompact ? "11px" : layout.font.small,
         fontStyle: "800",
         color: "#fff7ed",
         align: "center",
         maxLines: 3
       })
-        .setOrigin(0.5)
-        .setWordWrapWidth(laneWidth - 16);
+        .setOrigin(0.5, 0)
+        .setFixedSize(laneWidth - 12, laneHeight / 2 - 16)
+        .setWordWrapWidth(laneWidth - 12, true);
     });
   }
 

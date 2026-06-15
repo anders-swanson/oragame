@@ -106,7 +106,7 @@ export function advanceSnake(
   }
 
   const head = state.snake[0];
-  const nextHead = nextPoint(head, state.direction);
+  const nextHead = wrapPoint(nextPoint(head, state.direction), grid);
   const grows = state.growSegments > 0;
   const bodyForCollision = grows ? state.snake : state.snake.slice(0, -1);
   const segmentTopicIds = segmentTopicIdsFor(state);

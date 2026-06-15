@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { computeLayout } from "./layout";
 
 describe("responsive layout", () => {
-  it("reserves compact room for the bottom topic strip", () => {
+  it("reserves compact room for the bottom topic description strip", () => {
     for (const [width, height] of [
       [390, 844],
       [360, 640],
@@ -11,6 +11,7 @@ describe("responsive layout", () => {
       const layout = computeLayout(width, height);
 
       expect(layout.isCompact).toBe(true);
+      expect(layout.infoHeight).toBeGreaterThanOrEqual(104);
       expect(layout.gridX).toBeGreaterThanOrEqual(0);
       expect(layout.gridY + layout.gridHeight + layout.infoHeight + layout.padding).toBeLessThanOrEqual(height);
     }
