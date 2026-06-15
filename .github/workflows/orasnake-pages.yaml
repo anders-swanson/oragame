@@ -41,7 +41,7 @@ jobs:
         run: npm test
 
       - name: Build
-        run: npm run build -- --base=/snake/
+        run: npm run build -- --base=/oragame/snake/
 
       - name: Stage Pages artifact
         run: |
