@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Oragame Arcade favicon">
+  <rect width="64" height="64" rx="12" fill="#090b0a"/>
+  <path d="M0 0h64v64H0z" fill="url(#grid)"/>
+  <rect x="7" y="8" width="50" height="44" rx="6" fill="#111711" stroke="#f7f0de" stroke-opacity=".26" stroke-width="2"/>
+  <rect x="12" y="14" width="40" height="22" rx="3" fill="#08100f" stroke="#00c4b3" stroke-opacity=".72" stroke-width="2"/>
+  <path d="M20 31l7-13h10l7 13h-7l-1.4-3.3h-7.2L27 31h-7zm10.2-8h3.6L32 18.7 30.2 23z" fill="#f7f0de"/>
+  <path d="M18 43h28" stroke="#da291c" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="21" cy="49" r="3" fill="#da291c"/>
+  <circle cx="32" cy="49" r="3" fill="#00c4b3"/>
+  <circle cx="43" cy="49" r="3" fill="#f7f0de"/>
+  <defs>
+    <pattern id="grid" width="8" height="8" patternUnits="userSpaceOnUse">
+      <path d="M8 0H0v8" fill="none" stroke="#f7f0de" stroke-opacity=".06"/>
+    </pattern>
+  </defs>
+</svg>

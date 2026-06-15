@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Orasnake favicon">
+  <rect width="64" height="64" rx="12" fill="#070806"/>
+  <path d="M0 0h64v64H0z" fill="url(#grid)"/>
+  <rect x="7" y="7" width="50" height="50" rx="8" fill="#08100f" stroke="#00c4b3" stroke-opacity=".38" stroke-width="2"/>
+  <path d="M18 18h14v10h12v10H30v8" fill="none" stroke="#da291c" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="18" cy="18" r="8" fill="#ffd6d1"/>
+  <circle cx="18" cy="18" r="3.2" fill="#da291c"/>
+  <circle cx="47" cy="20" r="8" fill="#00c4b3" fill-opacity=".24"/>
+  <circle cx="47" cy="20" r="4.6" fill="#00c4b3"/>
+  <path d="M44.5 20l2 2 4-5" fill="none" stroke="#f7f0de" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <defs>
+    <pattern id="grid" width="8" height="8" patternUnits="userSpaceOnUse">
+      <path d="M8 0H0v8" fill="none" stroke="#f7f0de" stroke-opacity=".05"/>
+    </pattern>
+  </defs>
+</svg>
