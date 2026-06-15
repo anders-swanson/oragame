@@ -239,7 +239,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "chip",
     sourcePath: "json/jpa-duality-views",
     shortFact:
-      "JSON Relational Duality View samples expose document-shaped JSON while preserving normalized relational tables.",
+      "JSON Relational Duality Views expose document-shaped JSON while preserving normalized relational tables.",
     prompts: [
       {
         id: "duality-choice",
@@ -247,7 +247,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
         question: "Duality views let applications work with what shape over relational tables?",
         snippet: "CREATE JSON RELATIONAL DUALITY VIEW",
         sourcePath: "json/crud-duality-views/README.md",
-        choices: ["JSON documents", "Image sprites", "Only CSV files"],
+        choices: ["JSON documents", "Graphs", "CSV"],
         answerIndex: 0
       },
       {
@@ -272,7 +272,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "graph",
     sourcePath: "jdbc-property-graph",
     shortFact:
-      "The graph sample creates vertex and edge tables, defines a SQL property graph, and queries paths with GRAPH_TABLE.",
+      "Oracle graphs use vertex and edge tables to define a SQL property graph, and queries paths with GRAPH_TABLE.",
     prompts: [
       {
         id: "graph-sequence",
@@ -840,10 +840,10 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
       {
         id: "sqlcl-choice",
         mode: "choice",
-        question: "Which command-line tool powers the Python MCP database agent?",
+        question: "Which command-line tool powers the Oracle AI Database MCP server?",
         snippet: "SQLcl MCP Agent",
         sourcePath: "python-oracle/src/python_oracle/mcp_agent/README.md",
-        choices: ["SQLcl", "KafkaConsumer", "MDSYS.SDO_POINT_TYPE"],
+        choices: ["SQLcl", "orapki", "oramcp"],
         answerIndex: 0
       },
       {
@@ -873,7 +873,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
       {
         id: "agents-choice",
         mode: "choice",
-        question: "Which protocol connects tools to the Java agent sample?",
+        question: "Which protocol can connect LLMs to database servers?",
         snippet: "LangChain4j MCP client -> Oracle AI Database tools",
         sourcePath: "mcp-agent/README.md",
         choices: ["MCP", "SDO_GEOMETRY", "JMS selector only"],
@@ -900,13 +900,13 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "orb",
     sourcePath: "python-oracle/src/python_oracle/langchain_retrieval",
     shortFact:
-      "LangChain samples compose Oracle vector stores, all-MiniLM embeddings, and retrieval chains over Oracle AI Database.",
+      "LangChain is used to compose Oracle vector stores, embeddings, and retrieval chains over Oracle AI Database.",
     prompts: [
       {
         id: "langchain-choice",
         mode: "choice",
         question: "Which database capability backs LangChain retrieval?",
-        snippet: "OracleVS.from_documents(...)",
+        snippet: "OracleVS.similarity_search(...)",
         sourcePath: "python-oracle/src/python_oracle/langchain/README.md",
         choices: ["Oracle vector search", "JMS durable topic", "APEX workspace export"],
         answerIndex: 0
@@ -948,7 +948,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
       {
         id: "langgraph-choice",
         mode: "choice",
-        question: "What does the LangGraph sample persist?",
+        question: "What can LangGraph persist in Oracle AI Database?",
         snippet: "checkpoints + store rows",
         sourcePath: "python-oracle/src/python_oracle/langgraph_persistence/README.md",
         choices: ["Agent workflow state", "Only CSS tokens", "Only SVG filters"],
