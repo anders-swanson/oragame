@@ -41,6 +41,15 @@ describe("snake movement", () => {
     expect(second.score).toBeGreaterThan(0);
   });
 
+  it("carries an eaten pickup into the snake body", () => {
+    const state = awardPickup(createInitialSnakeState(grid), "vector-search");
+    const first = advanceSnake(state, grid).state;
+
+    expect(state.segmentTopicIds[0]).toBe("vector-search");
+    expect(first.segmentTopicIds).toHaveLength(first.snake.length);
+    expect(first.segmentTopicIds[1]).toBe("vector-search");
+  });
+
   it("detects wall collisions", () => {
     const state: SnakeState = {
       ...createInitialSnakeState(grid),
@@ -116,6 +125,7 @@ describe("pickup awards", () => {
 
     expect(state.score).toBeGreaterThan(0);
     expect(state.growSegments).toBe(2);
+    expect(state.segmentTopicIds[0]).toBe("vector-search");
     expect(state.collectedTopicIds).toEqual([]);
   });
 

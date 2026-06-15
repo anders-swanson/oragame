@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { ORACLE_TOPICS } from "../content/oracleFacts";
+import { publicAssetPath } from "../game/assets";
 
 export class BootScene extends Phaser.Scene {
   constructor() {
@@ -8,7 +9,7 @@ export class BootScene extends Phaser.Scene {
 
   preload(): void {
     for (const topic of ORACLE_TOPICS) {
-      this.load.svg(`pickup-${topic.id}`, topic.iconPath, { width: 128, height: 128 });
+      this.load.svg(`pickup-${topic.id}`, publicAssetPath(topic.iconPath), { width: 128, height: 128 });
     }
   }
 

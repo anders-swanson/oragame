@@ -9,6 +9,7 @@ import {
   awardPickup,
   chooseSpawnCell,
   createInitialSnakeState,
+  integratePickup,
   learnTopic,
   pointsEqual,
   withDirection
@@ -264,6 +265,7 @@ export class GameScene extends Phaser.Scene {
     this.spawnPickup();
 
     if (this.isGhostActive()) {
+      this.state = integratePickup(this.state, topic.id);
       this.ghostFoodsRemaining = Math.max(0, this.ghostFoodsRemaining - 1);
       if (!this.isGhostActive()) {
         this.createGhostRecoveredBurst();
@@ -629,10 +631,11 @@ export class GameScene extends Phaser.Scene {
     [...this.state.snake].reverse().forEach((cell, reverseIndex) => {
       const index = this.state.snake.length - 1 - reverseIndex;
       const isHead = index === 0;
+      const topic = this.topicForSegment(index);
       if (isHead) {
-        this.drawSnakeHead(layout, cell);
+        this.drawSnakeHead(layout, cell, topic);
       } else {
-        this.drawSnakeBody(layout, cell, index);
+        this.drawSnakeBody(layout, cell, index, topic);
       }
     });
   }
@@ -666,7 +669,7 @@ export class GameScene extends Phaser.Scene {
     this.graphics.lineBetween(x + layout.cell - 6, y + 6, x + 6, y + layout.cell - 6);
   }
 
-  private drawSnakeBody(layout: Layout, point: Point, index: number): void {
+  private drawSnakeBody(layout: Layout, point: Point, index: number, topic?: TopicFact): void {
     const inset = Math.max(2, Math.floor(layout.cell * 0.12));
     const size = layout.cell - inset * 2;
     const radius = Math.max(4, Math.floor(layout.cell * 0.34));
@@ -681,15 +684,21 @@ export class GameScene extends Phaser.Scene {
 
     this.graphics.fillStyle(0x4b0f0b, 0.26);
     this.graphics.fillRoundedRect(x - 2, y + 2, size + 4, size + 3, radius + 2);
-    this.graphics.fillStyle(pulse ? 0xe73527 : COLORS.snakeBody, 0.94);
+    this.graphics.fillStyle(topic ? topic.color : pulse ? 0xe73527 : COLORS.snakeBody, 0.94);
     this.graphics.fillRoundedRect(x, y, size, size, radius);
-    this.graphics.fillStyle(0xff8a73, 0.24);
+    this.graphics.fillStyle(topic ? 0xffffff : 0xff8a73, topic ? 0.18 : 0.24);
     this.graphics.fillRoundedRect(x + size * 0.18, y + size * 0.15, size * 0.46, size * 0.22, radius);
     this.graphics.fillStyle(0xffd6d1, 0.12);
     this.graphics.fillCircle(x + size * 0.68, y + size * 0.68, Math.max(1.5, size * 0.08));
+
+    if (topic) {
+      this.graphics.lineStyle(2, 0xffffff, 0.72);
+      this.graphics.strokeRoundedRect(x + 1, y + 1, size - 2, size - 2, radius);
+      this.drawIntegratedPickup({ x: x + size / 2, y: y + size / 2 }, size * 0.7, topic);
+    }
   }
 
-  private drawSnakeHead(layout: Layout, point: Point): void {
+  private drawSnakeHead(layout: Layout, point: Point, topic?: TopicFact): void {
     const inset = Math.max(2, Math.floor(layout.cell * 0.1));
     const size = layout.cell - inset * 2;
     const radius = Math.max(5, Math.floor(layout.cell * 0.36));
@@ -760,6 +769,37 @@ export class GameScene extends Phaser.Scene {
       mouthCenter.x + vector.x * size * 0.2,
       mouthCenter.y + vector.y * size * 0.2
     );
+
+    if (topic) {
+      this.drawIntegratedPickup(
+        {
+          x: center.x - vector.x * size * 0.24,
+          y: center.y - vector.y * size * 0.24
+        },
+        size * 0.42,
+        topic
+      );
+    }
+  }
+
+  private topicForSegment(index: number): TopicFact | undefined {
+    const topicId = this.state.segmentTopicIds[index];
+    return topicId ? topicById(topicId) : undefined;
+  }
+
+  private drawIntegratedPickup(center: Point, size: number, topic: TopicFact): void {
+    const radius = Math.max(3, size * 0.24);
+    const x = center.x - size / 2;
+    const y = center.y - size / 2;
+
+    this.graphics.fillStyle(topic.color, 0.28);
+    this.graphics.fillRoundedRect(x - 1, y - 1, size + 2, size + 2, radius + 1);
+    this.graphics.lineStyle(1, 0xffffff, 0.58);
+    this.graphics.strokeRoundedRect(x, y, size, size, radius);
+
+    const image = this.add.image(center.x, center.y, `pickup-${topic.id}`);
+    image.setDisplaySize(size * 0.82, size * 0.82).setAlpha(0.94);
+    this.labels.push(image);
   }
 
   private drawPickup(layout: Layout): void {
@@ -1289,6 +1329,7 @@ function cloneSnakeState(state: SnakeState): SnakeState {
   return {
     ...state,
     snake: state.snake.map(clonePoint),
+    segmentTopicIds: state.snake.map((_, index) => state.segmentTopicIds[index]),
     collectedTopicIds: [...state.collectedTopicIds]
   };
 }

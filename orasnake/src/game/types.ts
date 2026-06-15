@@ -14,6 +14,7 @@ export interface GridSize {
 
 export interface SnakeState {
   readonly snake: readonly Point[];
+  readonly segmentTopicIds: readonly (string | undefined)[];
   readonly direction: Direction;
   readonly growSegments: number;
   readonly alive: boolean;

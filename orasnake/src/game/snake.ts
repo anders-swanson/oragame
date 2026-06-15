@@ -31,14 +31,16 @@ export function createInitialSnakeState(grid: GridSize): SnakeState {
     x: Math.floor(grid.width / 2),
     y: Math.floor(grid.height / 2)
   };
+  const snake = [
+    center,
+    { x: center.x - 1, y: center.y },
+    { x: center.x - 2, y: center.y },
+    { x: center.x - 3, y: center.y }
+  ];
 
   return {
-    snake: [
-      center,
-      { x: center.x - 1, y: center.y },
-      { x: center.x - 2, y: center.y },
-      { x: center.x - 3, y: center.y }
-    ],
+    snake,
+    segmentTopicIds: snake.map(() => undefined),
     direction: "right",
     growSegments: 0,
     alive: true,
@@ -48,6 +50,10 @@ export function createInitialSnakeState(grid: GridSize): SnakeState {
     bestCombo: 1,
     collectedTopicIds: []
   };
+}
+
+function segmentTopicIdsFor(state: SnakeState): readonly (string | undefined)[] {
+  return state.snake.map((_, index) => state.segmentTopicIds[index]);
 }
 
 export function withDirection(state: SnakeState, nextDirection: Direction): SnakeState {
@@ -103,6 +109,8 @@ export function advanceSnake(
   const nextHead = nextPoint(head, state.direction);
   const grows = state.growSegments > 0;
   const bodyForCollision = grows ? state.snake : state.snake.slice(0, -1);
+  const segmentTopicIds = segmentTopicIdsFor(state);
+  const bodySegmentTopicIds = grows ? segmentTopicIds : segmentTopicIds.slice(0, -1);
   const collision = detectCollision(nextHead, grid, bodyForCollision, blockedCells);
 
   if (collision.type !== "none") {
@@ -110,6 +118,7 @@ export function advanceSnake(
       state: {
         ...state,
         snake: [nextHead, ...bodyForCollision],
+        segmentTopicIds: [undefined, ...bodySegmentTopicIds],
         alive: false
       },
       collision
@@ -121,6 +130,7 @@ export function advanceSnake(
     state: {
       ...state,
       snake: [nextHead, ...body],
+      segmentTopicIds: [undefined, ...bodySegmentTopicIds],
       growSegments: grows ? state.growSegments - 1 : 0
     },
     collision
@@ -142,15 +152,26 @@ export function advanceGhostSnake(state: SnakeState, grid: GridSize): { state: S
   const head = state.snake[0];
   const nextHead = wrapPoint(nextPoint(head, state.direction), grid);
   const body = state.snake.slice(0, -1);
+  const bodySegmentTopicIds = segmentTopicIdsFor(state).slice(0, -1);
 
   return {
     state: {
       ...state,
       snake: [nextHead, ...body],
+      segmentTopicIds: [undefined, ...bodySegmentTopicIds],
       growSegments: 0,
       alive: true
     },
     collision: { type: "none" }
+  };
+}
+
+export function integratePickup(state: SnakeState, topicId: string): SnakeState {
+  const segmentTopicIds = segmentTopicIdsFor(state);
+
+  return {
+    ...state,
+    segmentTopicIds: [topicId, ...segmentTopicIds.slice(1)]
   };
 }
 
@@ -180,10 +201,13 @@ export function awardPickup(state: SnakeState, topicId: string, baseScore = 100,
   const nextState = learn ? learnTopic(state, topicId) : state;
 
   return addGrowth(
-    {
-      ...nextState,
-      score: nextState.score + calculatePickupScore({ baseScore, combo: nextState.combo })
-    },
+    integratePickup(
+      {
+        ...nextState,
+        score: nextState.score + calculatePickupScore({ baseScore, combo: nextState.combo })
+      },
+      topicId
+    ),
     2
   );
 }
