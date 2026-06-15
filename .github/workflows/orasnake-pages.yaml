@@ -1,9 +1,10 @@
-name: Deploy Orasnake to Pages
+name: Deploy Oragame Arcade to Pages
 
 on:
   push:
     branches: ['main']
     paths:
+      - 'arcade/**'
       - 'orasnake/**'
       - '.github/workflows/orasnake-pages.yaml'
   workflow_dispatch:
@@ -14,15 +15,12 @@ permissions:
   id-token: write
 
 concurrency:
-  group: orasnake-pages
+  group: oragame-pages
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: orasnake
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -32,23 +30,37 @@ jobs:
         with:
           node-version: lts/*
           cache: npm
-          cache-dependency-path: orasnake/package-lock.json
+          cache-dependency-path: |
+            arcade/package-lock.json
+            orasnake/package-lock.json
 
-      - name: Install dependencies
+      - name: Install arcade dependencies
+        working-directory: arcade
         run: npm ci
 
-      - name: Test
+      - name: Build arcade landing page
+        working-directory: arcade
+        run: npm run build -- --base=/oragame/
+
+      - name: Install Orasnake dependencies
+        working-directory: orasnake
+        run: npm ci
+
+      - name: Test Orasnake
+        working-directory: orasnake
         run: npm test
 
-      - name: Build
+      - name: Build Orasnake
+        working-directory: orasnake
         run: npm run build -- --base=/oragame/snake/
 
       - name: Stage Pages artifact
         run: |
-          rm -rf ../pages
-          mkdir -p ../pages/snake
-          cp -R dist/. ../pages/snake/
-          touch ../pages/.nojekyll
+          rm -rf pages
+          mkdir -p pages/snake
+          cp -R arcade/dist/. pages/
+          cp -R orasnake/dist/. pages/snake/
+          touch pages/.nojekyll
 
       - name: Configure Pages
         uses: actions/configure-pages@v6
@@ -63,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}snake/
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment

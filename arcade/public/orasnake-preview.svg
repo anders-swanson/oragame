@@ -1,0 +1,23 @@
+<svg width="960" height="720" viewBox="0 0 960 720" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orasnake arcade preview">
+  <rect width="960" height="720" fill="#0A0D0B"/>
+  <path d="M0 0H960V720H0V0Z" fill="url(#grid)"/>
+  <rect x="96" y="80" width="768" height="560" rx="18" fill="#111711" stroke="#F7F0DE" stroke-opacity=".22" stroke-width="4"/>
+  <rect x="134" y="118" width="692" height="400" rx="8" fill="#08100F" stroke="#00C4B3" stroke-opacity=".5" stroke-width="3"/>
+  <path d="M184 470H776" stroke="#F7F0DE" stroke-opacity=".12" stroke-width="2"/>
+  <path d="M202 166H310V238H418V310H526V382H634" stroke="#DA291C" stroke-width="44" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="202" cy="166" r="31" fill="#FFD6D1"/>
+  <circle cx="202" cy="166" r="12" fill="#DA291C"/>
+  <circle cx="700" cy="240" r="40" fill="#00C4B3" fill-opacity=".22"/>
+  <circle cx="700" cy="240" r="22" fill="#00C4B3"/>
+  <path d="M691 239L698 246L712 230" stroke="#F7F0DE" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="318" cy="390" r="34" fill="#F7F0DE" fill-opacity=".18"/>
+  <path d="M318 364L342 403H294L318 364Z" fill="#F7F0DE"/>
+  <rect x="164" y="552" width="186" height="24" rx="12" fill="#DA291C"/>
+  <rect x="388" y="552" width="188" height="24" rx="12" fill="#00C4B3"/>
+  <rect x="614" y="552" width="182" height="24" rx="12" fill="#F7F0DE"/>
+  <defs>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" stroke="#F7F0DE" stroke-opacity=".06" stroke-width="2"/>
+    </pattern>
+  </defs>
+</svg>
