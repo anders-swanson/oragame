@@ -15,6 +15,10 @@ export const COLORS = {
   snakeBody: 0xda291c
 };
 
+export const ORAGAME_HOME_URL = "https://anders-swanson.github.io/oragame/";
+
+type LinkTarget = "same-tab" | "new-tab";
+
 export function drawBackground(graphics: Phaser.GameObjects.Graphics, layout: Layout): void {
   graphics.fillStyle(COLORS.background, 1);
   graphics.fillRect(0, 0, layout.width, layout.height);
@@ -50,6 +54,37 @@ export function addText(
     ...style
   });
   labels.push(label);
+  return label;
+}
+
+export function addTextLink(
+  scene: Phaser.Scene,
+  labels: Phaser.GameObjects.GameObject[],
+  graphics: Phaser.GameObjects.Graphics,
+  x: number,
+  y: number,
+  text: string,
+  url: string,
+  style: Phaser.Types.GameObjects.Text.TextStyle,
+  originX = 0,
+  target: LinkTarget = "new-tab"
+): Phaser.GameObjects.Text {
+  const label = addText(scene, labels, x, y, text, {
+    fontStyle: "800",
+    color: "#ffd6d1",
+    ...style
+  }).setOrigin(originX, 0);
+
+  underlineText(graphics, label);
+  label.setInteractive({ useHandCursor: true }).on("pointerup", () => {
+    if (target === "same-tab") {
+      window.location.assign(url);
+      return;
+    }
+
+    window.open(url, "_blank", "noopener,noreferrer");
+  });
+
   return label;
 }
 

@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { topicById } from "../content/oracleFacts";
 import { computeLayout, type Layout } from "../game/layout";
-import { addText, COLORS, drawBackground, roundedPanel, underlineText } from "./draw";
+import { addText, addTextLink, COLORS, drawBackground, ORAGAME_HOME_URL, roundedPanel, underlineText } from "./draw";
 import type { GameOverPayload } from "./GameScene";
 
 const SOURCE_REPO_URL = "https://github.com/anders-swanson/oracle-database-code-samples";
@@ -54,7 +54,27 @@ export class GameOverScene extends Phaser.Scene {
       fontStyle: "800",
       color: "#fff7ed"
     });
-    this.drawSourceLink(layout, layout.width - layout.padding, 18, layout.isCompact ? "Samples" : "Open sample repo", SOURCE_REPO_URL, 1);
+    addTextLink(
+      this,
+      this.labels,
+      this.graphics,
+      layout.isCompact ? layout.padding + 104 : layout.padding + 142,
+      18,
+      layout.isCompact ? "Oragame" : "Oragame home",
+      ORAGAME_HOME_URL,
+      {
+        fontSize: layout.font.small,
+        align: "left",
+        maxLines: 1
+      },
+      0,
+      "same-tab"
+    );
+    addTextLink(this, this.labels, this.graphics, layout.width - layout.padding, 18, layout.isCompact ? "Samples" : "Open sample repo", SOURCE_REPO_URL, {
+      fontSize: layout.font.small,
+      align: "right",
+      maxLines: 1
+    }, 1);
 
     const panelWidth = Math.min(layout.width - layout.padding * 2, layout.isCompact ? 360 : 720);
     const panelHeight = Math.min(layout.height - layout.hudHeight - layout.padding * 2, layout.isCompact ? 540 : 540);
@@ -283,15 +303,4 @@ export class GameOverScene extends Phaser.Scene {
     this.scene.start("GameScene");
   }
 
-  private drawSourceLink(layout: Layout, x: number, y: number, text: string, url: string, originX = 0): void {
-    const label = addText(this, this.labels, x, y, text, {
-      fontSize: layout.font.small,
-      fontStyle: "800",
-      color: "#ffd6d1",
-      align: originX === 1 ? "right" : "left",
-      maxLines: 1
-    }).setOrigin(originX, 0);
-    underlineText(this.graphics, label);
-    label.setInteractive({ useHandCursor: true }).on("pointerup", () => window.open(url, "_blank", "noopener,noreferrer"));
-  }
 }

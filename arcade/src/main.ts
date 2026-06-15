@@ -36,6 +36,15 @@ app.innerHTML = `
       <p class="lede">
         A small collection of quick, playable games built around database concepts.
       </p>
+      <a
+        class="repo-link"
+        href="https://github.com/anders-swanson/oragame"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Star the anders-swanson/oragame repository on GitHub"
+      >
+        Star on GitHub!
+      </a>
     </section>
 
     <section class="cabinet-grid" aria-label="Available games">

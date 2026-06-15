@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import { ORACLE_TOPICS } from "../content/oracleFacts";
 import { computeLayout, type Layout } from "../game/layout";
 import type { TopicFact } from "../game/types";
-import { addText, COLORS, drawBackground, roundedPanel, underlineText } from "./draw";
+import { addText, addTextLink, COLORS, drawBackground, ORAGAME_HOME_URL, roundedPanel } from "./draw";
 
 const SOURCE_REPO_URL = "https://github.com/anders-swanson/oracle-database-code-samples";
 const MENU_PREVIEW_TOPIC_IDS = [
@@ -81,7 +81,7 @@ export class MenuScene extends Phaser.Scene {
     this.drawStartButton(layout);
     this.drawTopicPreview(layout);
     this.drawControls(layout);
-    this.drawSourceLink(layout);
+    this.drawFooterLinks(layout);
   }
 
   private drawStartButton(layout: Layout): void {
@@ -164,28 +164,21 @@ export class MenuScene extends Phaser.Scene {
       .setWordWrapWidth(layout.width - layout.padding * 2);
   }
 
-  private drawSourceLink(layout: Layout): void {
-    const text = layout.isCompact
-      ? "GitHub sample repo"
-      : "Source samples: github.com/anders-swanson/oracle-database-code-samples";
+  private drawFooterLinks(layout: Layout): void {
     const y = layout.height - layout.padding - 22;
-    const link = addText(this, this.labels, layout.width / 2, y, text, {
+    const gap = layout.isCompact ? 56 : 170;
+    const homeText = layout.isCompact ? "Oragame" : "Oragame home";
+    const sourceText = layout.isCompact ? "Samples" : "Sample repo";
+
+    addTextLink(this, this.labels, this.graphics, layout.width / 2 - gap, y, homeText, ORAGAME_HOME_URL, {
       fontSize: layout.font.small,
-      fontStyle: "700",
-      color: "#ffe5e1",
       align: "center"
-    })
-      .setOrigin(0.5, 0)
-      .setWordWrapWidth(layout.width - layout.padding * 2);
+    }, 0.5, "same-tab");
 
-    const bounds = link.getBounds();
-    underlineText(this.graphics, link);
-
-    const hit = this.add
-      .zone(bounds.centerX, bounds.centerY, bounds.width + 18, bounds.height + 10)
-      .setInteractive({ useHandCursor: true })
-      .on("pointerup", this.openSourceRepo, this);
-    this.labels.push(hit);
+    addTextLink(this, this.labels, this.graphics, layout.width / 2 + gap, y, sourceText, SOURCE_REPO_URL, {
+      fontSize: layout.font.small,
+      align: "center"
+    }, 0.5);
   }
 
   private previewTopics(limit: number): readonly TopicFact[] {
@@ -203,9 +196,5 @@ export class MenuScene extends Phaser.Scene {
 
   private startGame(): void {
     this.scene.start("GameScene");
-  }
-
-  private openSourceRepo(): void {
-    window.open(SOURCE_REPO_URL, "_blank", "noopener,noreferrer");
   }
 }

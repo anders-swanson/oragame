@@ -15,7 +15,7 @@ import {
   withDirection
 } from "../game/snake";
 import type { CollisionResult, Direction, Point, QtePrompt, SnakeState, TopicFact } from "../game/types";
-import { addText, COLORS, drawBackground, roundedPanel, underlineText } from "./draw";
+import { addText, addTextLink, COLORS, drawBackground, ORAGAME_HOME_URL, roundedPanel, underlineText } from "./draw";
 
 interface Pickup {
   readonly cell: Point;
@@ -570,6 +570,23 @@ export class GameScene extends Phaser.Scene {
       fontStyle: "800",
       color: "#fff7ed"
     });
+
+    addTextLink(
+      this,
+      this.labels,
+      this.graphics,
+      layout.isCompact ? layout.width - layout.padding : layout.padding + 122,
+      layout.isCompact ? 14 : 17,
+      layout.isCompact ? "Oragame" : "Oragame home",
+      ORAGAME_HOME_URL,
+      {
+        fontSize: layout.isCompact ? "11px" : "13px",
+        align: layout.isCompact ? "right" : "left",
+        maxLines: 1
+      },
+      layout.isCompact ? 1 : 0,
+      "same-tab"
+    );
 
     const scoreLine = `Score ${this.state.score}   Combo x${this.state.combo.toFixed(2)}   Insight ${this.state.insight}`;
     addText(this, this.labels, layout.isCompact ? layout.padding : layout.width - layout.padding, layout.isCompact ? 38 : 16, scoreLine, {
