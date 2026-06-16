@@ -107,13 +107,13 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "orb",
     sourcePath: "oracle-ai-database-docker-compose",
     shortFact:
-      "The local development samples use Oracle AI Database Free containers as the repeatable base for AI, JSON, graph, queues, and Spring flows.",
+      "Build, test, and run Oracle AI Database Free right on your workstation.",
     prompts: [
       {
         id: "free-sequence",
         mode: "sequence",
-        question: "Boot the local Oracle AI Database Free lab.",
-        snippet: 'image: "gvenzl/oracle-free:23.26.2-slim-faststart"',
+        question: "Try the local Oracle AI Database Free lab.",
+        snippet: 'image: "gvenzl/oracle-free:slim-faststart"',
         sourcePath: "oracle-ai-database-docker-compose/docker-compose.yml",
         sequence: ["up", "right", "down"],
         advantage: "slow-time",
@@ -122,10 +122,10 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
       {
         id: "free-choice",
         mode: "choice",
-        question: "Which runtime anchors the sample repo's local database demos?",
-        snippet: 'new OracleContainer("gvenzl/oracle-free:23.26.2-slim-faststart")',
+        question: "What local runtime can run and test applications against Oracle AI Database Free?",
+        snippet: 'new OracleContainer("gvenzl/oracle-free:slim-faststart")',
         sourcePath: "testcontainers/src/test/java/com/example/SpringBootDatabaseTest.java",
-        choices: ["Oracle AI Database Free", "A static browser cache", "Only an external SaaS queue"],
+        choices: ["Testcontainers with Oracle AI Database Free", "A static browser cache", "Managed cloud services"],
         answerIndex: 0
       }
     ]
@@ -139,7 +139,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "orb",
     sourcePath: "ai-vector-search",
     shortFact:
-      "Vector samples store embeddings in Oracle AI Database and retrieve semantically similar rows with vector distance queries.",
+      "Vector columns store embeddings in Oracle AI Database and retrieve semantically similar rows with vector distance queries (similarity search).",
     prompts: [
       {
         id: "vector-sequence",
@@ -174,7 +174,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "diamond",
     sourcePath: "jdbc-hybrid-search",
     shortFact:
-      "Hybrid search combines vector similarity, Oracle Text, JSON metadata, and relational filters in one JDBC query path.",
+      "Hybrid search combines multiple signals: vector similarity, Oracle Text, JSON metadata, and relational filters in one query path.",
     prompts: [
       {
         id: "hybrid-choice",
@@ -182,7 +182,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
         question: "Hybrid search boosts relevance by blending which signals?",
         snippet: "Oracle Text + vectors + JSON filters",
         sourcePath: "jdbc-hybrid-search/README.md",
-        choices: ["Text, vector, JSON, SQL", "Only CSS classes", "Only connection names"],
+        choices: ["Text, vector, JSON, and/or SQL in one database", "Fuzzy search", "Querying different databases"],
         answerIndex: 0
       },
       {
@@ -191,7 +191,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
         question: "Choose the indexed JSON path.",
         snippet: "JSON_EXISTS(metadata, '$.tags?(@ == $tag)')",
         sourcePath: "jdbc-hybrid-search/src/main/resources/schema.sql",
-        lanes: ["JSON predicate", "Sprite origin", "Keyboard repeat"],
+        lanes: ["JSON path predicate", "jq bash query", "Keyboard repeat"],
         answerIndex: 0,
         advantage: "clear-obstacle",
         penalty: "obstacle"
@@ -207,7 +207,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "chip",
     sourcePath: "json",
     shortFact:
-      "The JSON samples cover Oracle JSON columns, OSON payloads, SQL/JSON operators, analytics, and multivalue indexes.",
+      "Oracle document support covers JSON columns, OSON serialization, SQL/JSON operators, analytics, multivalue indexes, and more.",
     prompts: [
       {
         id: "json-sequence",
@@ -222,10 +222,10 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
       {
         id: "json-choice",
         mode: "choice",
-        question: "Which binary JSON payload appears in event-streaming samples?",
+        question: "Which binary JSON format is used by Oracle AI Database?",
         snippet: "OSONSerializer<WeatherEvent>",
         sourcePath: "migrate-kafka-to-oracle/kafka-app-step-2/src/main/java/com/example/kafka2/OSONSerializer.java",
-        choices: ["OSON", "CSSOM", "Bitmap font XML"],
+        choices: ["OSON", "BSON", "Raw JSON"],
         answerIndex: 0
       }
     ]
@@ -247,7 +247,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
         question: "Duality views let applications work with what shape over relational tables?",
         snippet: "CREATE JSON RELATIONAL DUALITY VIEW",
         sourcePath: "json/crud-duality-views/README.md",
-        choices: ["JSON documents", "Graphs", "CSV"],
+        choices: ["JSON", "XML", "CSV"],
         answerIndex: 0
       },
       {
@@ -290,7 +290,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
         question: "Which SQL table function queries graph patterns?",
         snippet: "GRAPH_TABLE(social_graph MATCH (p)-[e]->(friend))",
         sourcePath: "jdbc-property-graph/src/main/java/com/example/graph/JdbcPropertyGraphSample.java",
-        choices: ["GRAPH_TABLE", "SDO_FILTER", "JSON_SERIALIZE only"],
+        choices: ["GRAPH_TABLE", "SDO_FILTER", "GRAPH_QUERY"],
         answerIndex: 0
       }
     ]
@@ -304,7 +304,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "diamond",
     sourcePath: "jdbc-graphql",
     shortFact:
-      "The JDBC GraphQL sample uses Oracle SQL GraphQL syntax so clients can request shaped JSON from relational data.",
+      "Oracle SQL GraphQL syntax allows database clients to request shaped JSON from relational data.",
     prompts: [
       {
         id: "graphql-choice",
@@ -312,7 +312,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
         question: "SQL GraphQL is useful when clients need what?",
         snippet: "select data from graphql('students { ... @link(...) }')",
         sourcePath: "jdbc-graphql/src/main/java/com/example/graphql/JdbcGraphqlSample.java",
-        choices: ["Shaped response JSON", "Raw image pixels", "Only table DDL"],
+        choices: ["Shaped response JSON", "Raw column data", "XML"],
         answerIndex: 0
       },
       {
@@ -337,7 +337,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "diamond",
     sourcePath: "jdbc-spatial-example",
     shortFact:
-      "The spatial sample persists SDO_GEOMETRY, creates a spatial index, and queries windows and distances from JDBC.",
+      "Oracle Spatial persists SDO_GEOMETRY, creates a spatial indexes, and can query geometries like windows and distances.",
     prompts: [
       {
         id: "spatial-sequence",
@@ -369,7 +369,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "ticket",
     sourcePath: "jdbc-json-oracle-text",
     shortFact:
-      "Oracle Text samples build JSON search indexes and rank full-text matches with json_textcontains, SCORE, and NEAR.",
+      "Oracle Text can build JSON search indexes and rank full-text matches with json_textcontains, SCORE, and NEAR.",
     prompts: [
       {
         id: "text-choice",
@@ -402,7 +402,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "queue",
     sourcePath: "txeventq-examples",
     shortFact:
-      "TxEventQ samples show database-backed messaging through PL/SQL, Kafka APIs, JMS, ORDS, and TypeScript producers.",
+      "TxEventQ enables database-backed messaging through PL/SQL, Kafka APIs, JMS, ORDS, and any database driver.",
     prompts: [
       {
         id: "txeventq-sequence",
@@ -417,10 +417,10 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
       {
         id: "txeventq-lane",
         mode: "lane",
-        question: "Choose the database event endpoint.",
+        question: "Choose the database-native REST event endpoint.",
         snippet: "/database/txeventq/clusters/{db}/topics",
         sourcePath: "txeventq-examples/ords.md",
-        lanes: ["ORDS TxEventQ", "SVG filter", "Font loader"],
+        lanes: ["ORDS TxEventQ API", "Messaging REST", "Events System"],
         answerIndex: 0,
         advantage: "slow-time",
         penalty: "obstacle"
@@ -436,7 +436,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "queue",
     sourcePath: "oracle-database-kafka-apis",
     shortFact:
-      "OKafka samples use Kafka Java APIs over Oracle AI Database Transactional Event Queues, including transactional produce and consume flows.",
+      "OKafka implements Kafka Java APIs over Oracle AI Database Transactional Event Queues, including transactional produce and consume flows.",
     prompts: [
       {
         id: "okafka-choice",
@@ -444,7 +444,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
         question: "Which Java client sends records into Oracle TxEventQ topics?",
         snippet: "new KafkaProducer<>(producerProps)",
         sourcePath: "oracle-database-kafka-apis/src/test/java/com/example/OKafkaExampleIT.java",
-        choices: ["org.oracle.okafka.clients.producer.KafkaProducer", "Phaser.GameObjects.Text", "MDSYS.SDO_GEOMETRY"],
+        choices: ["KafkaProducer", "OracleProducer", "JMSSender"],
         answerIndex: 0
       },
       {
@@ -468,21 +468,21 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "queue",
     sourcePath: "jms-producer-consumer",
     shortFact:
-      "JMS samples use TxEventQ topics for pub/sub and queues for point-to-point delivery, including Spring Boot tracing variants.",
+      "JMS uses TxEventQ topics for pub/sub and queues for point-to-point delivery, including Spring Boot integration.",
     prompts: [
       {
         id: "jms-choice",
         mode: "choice",
-        question: "Which Spring helper publishes JMS messages in the samples?",
+        question: "Which Spring Boot helper publishes JMS messages to topics and queues?",
         snippet: "jmsTemplate.convertAndSend(destination, payload)",
         sourcePath: "txeventq-examples/src/main/java/com/example/txeventq/SpringJMSProducer.java",
-        choices: ["JmsTemplate", "GRAPH_TABLE", "OracleContainer"],
+        choices: ["JmsTemplate/JmsClient", "JdbcClient", "OracleJMS"],
         answerIndex: 0
       },
       {
         id: "jms-lane",
         mode: "lane",
-        question: "Pick the pub/sub shape.",
+        question: "Pick the pub/sub shape for Oracle AI Database Transactional Event Queues.",
         snippet: "DBMS_AQADM.JMS_TYPE",
         sourcePath: "spring-boot-jms-example/src/test/resources/init.sql",
         lanes: ["JMS topic", "Spatial index", "Duality ETAG"],
@@ -501,7 +501,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "ticket",
     sourcePath: "ords-docker-compose",
     shortFact:
-      "ORDS samples expose Oracle AI Database over REST, MongoDB-compatible APIs, TxEventQ endpoints, and APEX-ready docker compose setup.",
+      "ORDS exposes Oracle AI Database over REST, MongoDB-compatible APIs, TxEventQ endpoints, and APEX-ready docker compose setup.",
     prompts: [
       {
         id: "ords-sequence",
@@ -519,7 +519,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
         question: "Which service exposes REST and APEX paths for the database?",
         snippet: "ords-docker-compose/apex + ords_config",
         sourcePath: "ords-docker-compose/README.md",
-        choices: ["Oracle REST Data Services", "Kafka partitioner only", "Canvas input manager"],
+        choices: ["Oracle REST Data Services", "TNS Listener", "Gateway REST API"],
         answerIndex: 0
       }
     ]
@@ -533,7 +533,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
     pickupStyle: "chip",
     sourcePath: "spring-data-mongodb-oracle-api",
     shortFact:
-      "MongoDB API samples use ORDS so MongoDB Java and Spring Data clients can work against Oracle AI Database collections.",
+      "MongoDB API is implemented with ORDS so MongoDB clients can work directly against Oracle AI Database collections.",
     prompts: [
       {
         id: "mongodb-choice",
@@ -541,7 +541,7 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
         question: "Which Oracle component fronts the MongoDB-compatible API?",
         snippet: "MongoClient -> ORDS -> Oracle AI Database",
         sourcePath: "spring-data-mongodb-oracle-api/README.md",
-        choices: ["ORDS", "JMS selector", "SVG viewBox"],
+        choices: ["ORDS", "CompatAPI", "Pipeline services"],
         answerIndex: 0
       },
       {
@@ -581,10 +581,10 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
       {
         id: "testcontainers-choice",
         mode: "choice",
-        question: "What makes the integration tests repeatable?",
+        question: "What makes local integration tests repeatable?",
         snippet: "withInitScript(\"schema.sql\")",
         sourcePath: "json/crud-duality-views/src/test/java/com/example/jdv/crud/JDVCrudTest.java",
-        choices: ["Disposable Oracle containers", "Manual screenshots", "Global browser cookies"],
+        choices: ["Disposable, Free Oracle containers", "Manual screenshots", "Global browser cookies"],
         answerIndex: 0
       }
     ]
@@ -609,15 +609,6 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
         sequence: ["left", "up", "up"],
         advantage: "slow-time",
         penalty: "speed-pressure"
-      },
-      {
-        id: "spring-choice",
-        mode: "choice",
-        question: "Which Spring sample sends database-backed messages?",
-        snippet: "Spring Boot JMS over TxEventQ",
-        sourcePath: "spring-boot-cdc/README.md",
-        choices: ["spring-boot-cdc", "jdbc-spatial-flow.svg", "sqlplus history"],
-        answerIndex: 0
       }
     ]
   },
@@ -651,15 +642,6 @@ const TOPIC_SEEDS: readonly TopicSeed[] = [
         answerIndex: 0,
         advantage: "clear-obstacle",
         penalty: "obstacle"
-      },
-      {
-        id: "resource-choice",
-        mode: "choice",
-        question: "Which resolver turns Oracle BLOB rows into Spring resources?",
-        snippet: "DatabaseResourceResolver",
-        sourcePath: "spring-resource-sample/src/main/java/com/example/DatabaseResourceResolver.java",
-        choices: ["DatabaseResourceResolver", "OracleContainer", "GRAPH_TABLE"],
-        answerIndex: 0
       }
     ]
   },
