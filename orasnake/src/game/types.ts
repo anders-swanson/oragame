@@ -16,6 +16,7 @@ export interface SnakeState {
   readonly snake: readonly Point[];
   readonly segmentTopicIds: readonly (string | undefined)[];
   readonly direction: Direction;
+  readonly lastMoveDirection: Direction;
   readonly growSegments: number;
   readonly alive: boolean;
   readonly score: number;

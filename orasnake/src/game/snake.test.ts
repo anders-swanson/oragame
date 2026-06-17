@@ -31,6 +31,25 @@ describe("snake movement", () => {
     expect(next.direction).toBe("right");
   });
 
+  it("blocks a rapid pre-tick turn that reverses the last movement direction", () => {
+    const state = createInitialSnakeState(grid);
+    const turnedUp = withDirection(state, "up");
+    const rapidLeft = withDirection(turnedUp, "left");
+
+    expect(turnedUp.direction).toBe("up");
+    expect(rapidLeft.direction).toBe("up");
+  });
+
+  it("allows the same turn after the previous turn has moved", () => {
+    const state = createInitialSnakeState(grid);
+    const turnedUp = withDirection(state, "up");
+    const movedUp = advanceSnake(turnedUp, grid).state;
+    const turnedLeft = withDirection(movedUp, "left");
+
+    expect(movedUp.lastMoveDirection).toBe("up");
+    expect(turnedLeft.direction).toBe("left");
+  });
+
   it("grows after a pickup", () => {
     const state = awardPickup(createInitialSnakeState(grid), "vector-search");
     const first = advanceSnake(state, grid).state;

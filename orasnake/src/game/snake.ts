@@ -42,6 +42,7 @@ export function createInitialSnakeState(grid: GridSize): SnakeState {
     snake,
     segmentTopicIds: snake.map(() => undefined),
     direction: "right",
+    lastMoveDirection: "right",
     growSegments: 0,
     alive: true,
     score: 0,
@@ -57,7 +58,7 @@ function segmentTopicIdsFor(state: SnakeState): readonly (string | undefined)[] 
 }
 
 export function withDirection(state: SnakeState, nextDirection: Direction): SnakeState {
-  if (state.snake.length > 1 && isOppositeDirection(state.direction, nextDirection)) {
+  if (state.snake.length > 1 && isOppositeDirection(state.lastMoveDirection, nextDirection)) {
     return state;
   }
 
@@ -119,6 +120,7 @@ export function advanceSnake(
         ...state,
         snake: [nextHead, ...bodyForCollision],
         segmentTopicIds: [undefined, ...bodySegmentTopicIds],
+        lastMoveDirection: state.direction,
         alive: false
       },
       collision
@@ -131,6 +133,7 @@ export function advanceSnake(
       ...state,
       snake: [nextHead, ...body],
       segmentTopicIds: [undefined, ...bodySegmentTopicIds],
+      lastMoveDirection: state.direction,
       growSegments: grows ? state.growSegments - 1 : 0
     },
     collision
@@ -159,6 +162,7 @@ export function advanceGhostSnake(state: SnakeState, grid: GridSize): { state: S
       ...state,
       snake: [nextHead, ...body],
       segmentTopicIds: [undefined, ...bodySegmentTopicIds],
+      lastMoveDirection: state.direction,
       growSegments: 0,
       alive: true
     },
